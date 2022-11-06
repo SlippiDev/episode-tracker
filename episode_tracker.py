@@ -10,14 +10,19 @@ def new_show():
     episode_number = e2.get()
     mydb = mql.connect(
             host = "localhost",
-            database = "episode_tracker",
             user = "root",
-            password = "4JVkrk75Jamd"
+            password = "4JVkrk75Jamd",
+            database = "episode_tracker"
+
             )
-    cursor = mydb.cursor()
-    sql = "insert into main (show, episode) values(%s, %s)" 
-    val = (show_name, episode_number,)
-    cursor.execute(sql, val)
+    print("Data conncted successfully.")
+    mycursor = mydb.cursor()
+    sql = ("INSERT INTO main1 (show_name, episode) VALUES (%s, %s)")
+    val = (show_name, episode_number)
+    mycursor.execute(sql, val)
+
+    mydb.commit()
+    #mydb.close()
     messagebox.showinfo("Info", "Added Show!")
 
 root = tk.Tk()
@@ -36,7 +41,9 @@ l3 = tk.Label(root, text = "Episode #").place(x = 10, y = 90)
 e2 = tk.Entry(root)
 e2.place(x = 140, y = 90)
 
-b1 = tk.Button(root, text = "New Show", command = new_show, height=1, width=12).place(x = 30, y = 210)
+b1 = tk.Button(root, text = "New Show", command = new_show, height=1, width=12)
+
+b1.place(x = 30, y = 210)
 
 
 root.mainloop()
