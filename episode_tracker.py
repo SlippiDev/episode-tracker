@@ -11,19 +11,33 @@ def new_show():
     mydb = mql.connect(
             host = "localhost",
             user = "root",
-            password = "4JVkrk75Jamd",
+            password = "4JVkrk75sJamd",
             database = "episode_tracker"
 
             )
     print("Data conncted successfully.")
-    mycursor = mydb.cursor()
-    sql = ("INSERT INTO main1 (show_name, episode) VALUES (%s, %s)")
+    cursor = mydb.cursor()
+    sql = ("INSERT INTO episodes (show_name, episode) VALUES (%s, %s)")
     val = (show_name, episode_number)
-    mycursor.execute(sql, val)
+    cursor.execute(sql, val)
 
     mydb.commit()
-    #mydb.close()
     messagebox.showinfo("Info", "Added Show!")
+def remove_show():
+    show_name = e1.get()
+    mydb = mql.connect(
+            host = "localhost",
+            user = "root",
+            password = "4JVkrk75sJamd",
+            database = "episode_tracker"
+    )
+    print("Connected to the MySql Servers.")
+    cursor = mydb.cursor()
+    sql = ("delete from employees where id = %s")
+    val = (show_name,)
+    cursor.execute(sql, val)
+    mydb.commit()
+    messagebox.showinfo("Information", "Removed Data Successfully")
 
 root = tk.Tk()
 root.geometry("800x500")
